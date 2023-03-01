@@ -1,9 +1,16 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Link, Typography, Stack, Box } from '@mui/material';
 import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
-import { SigninForm } from 'components';
+import { SignupForm } from 'components';
 
 export default function Signup() {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+  if (isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <Box
       width="100%"
@@ -27,7 +34,7 @@ export default function Signup() {
           </Typography>
         </Stack>
         <Stack spacing={2}>
-          <SigninForm />
+          <SignupForm />
           <Typography align="center">
             <Typography component="span" mr={1}>
               Already have an account?

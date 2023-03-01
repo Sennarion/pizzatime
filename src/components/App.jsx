@@ -1,6 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { SharedLayout, Home } from 'components';
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { SharedLayout, Dashboard } from 'components';
+import { setUser } from 'redux/auth/slice';
+import { auth } from 'firebase.js';
 
 const Signup = lazy(() => import('pages/Signup/Signup'));
 const Signin = lazy(() => import('pages/Signin/Signin'));
@@ -12,13 +16,25 @@ const ProductDetails = lazy(() =>
 );
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  onAuthStateChanged(auth, currentUser => {
+    if (currentUser) {
+      dispatch(
+        setUser({
+          email: currentUser.email,
+        })
+      );
+    }
+  });
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Dashboard />} />
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<Profile />} />
           <Route path="products" element={<Products />} />

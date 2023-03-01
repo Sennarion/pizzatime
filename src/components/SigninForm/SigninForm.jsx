@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { Button, TextField, Stack } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
+import { setUser } from 'redux/auth/slice';
+import { auth, provider } from 'firebase.js';
 
 export default function SigninForm() {
   const dispatch = useDispatch();
@@ -10,6 +14,16 @@ export default function SigninForm() {
 
   const onSubmit = e => {
     e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        dispatch(
+          setUser({
+            email: user.email,
+          })
+        );
+      })
+      .catch(err => alert(err));
   };
 
   return (
@@ -39,6 +53,15 @@ export default function SigninForm() {
         />
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Sign in
+        </Button>
+        <Button
+          startIcon={<GoogleIcon />}
+          variant="outlined"
+          color="primary"
+          fullWidth
+          onClick={() => signInWithPopup(auth, provider)}
+        >
+          Sign in with google
         </Button>
       </Stack>
     </form>

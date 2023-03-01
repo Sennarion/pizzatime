@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Button, TextField, Stack } from '@mui/material';
+import { setUser } from 'redux/auth/slice';
+import { auth } from 'firebase.js';
 
 export default function SignupForm() {
   const dispatch = useDispatch();
@@ -10,6 +13,16 @@ export default function SignupForm() {
 
   const onSubmit = e => {
     e.preventDefault();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        dispatch(
+          setUser({
+            email: user.email,
+          })
+        );
+      })
+      .catch(err => alert(err));
   };
 
   return (

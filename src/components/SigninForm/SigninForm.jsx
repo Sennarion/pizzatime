@@ -20,6 +20,7 @@ export default function SigninForm() {
         dispatch(
           setUser({
             email: user.email,
+            id: user.uid,
           })
         );
       })

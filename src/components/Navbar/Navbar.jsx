@@ -36,12 +36,7 @@ export default function Navbar() {
           Sign out
         </Button>
       ) : (
-        <Button
-          component={NavLink}
-          to="/signin"
-          variant="outlined"
-          onClick={singout}
-        >
+        <Button component={NavLink} to="/signin" variant="outlined">
           Sign In
         </Button>
       )}

@@ -1,8 +1,8 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
-import { SharedLayout, Dashboard } from 'components';
+import { SharedLayout, Dashboard, Loader } from 'components';
 import { setUser } from 'redux/auth/slice';
 import { auth } from 'firebase.js';
 
@@ -18,30 +18,36 @@ const ProductDetails = lazy(() =>
 export default function App() {
   const dispatch = useDispatch();
 
-  onAuthStateChanged(auth, currentUser => {
-    if (currentUser) {
-      dispatch(
-        setUser({
-          email: currentUser.email,
-        })
-      );
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, currentUser => {
+      if (currentUser) {
+        dispatch(
+          setUser({
+            email: currentUser.email,
+            id: currentUser.uid,
+          })
+        );
+      }
+    });
+  }, [dispatch]);
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="products" element={<Products />} />
-          <Route path="products/:productId" element={<ProductDetails />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Suspense>
+    <>
+      <Loader isOpen={false} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="products" element={<Products />} />
+            <Route path="products/:productId" element={<ProductDetails />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 }

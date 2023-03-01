@@ -19,6 +19,7 @@ export default function SignupForm() {
         dispatch(
           setUser({
             email: user.email,
+            id: user.uid,
           })
         );
       })

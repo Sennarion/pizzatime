@@ -1,29 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from 'firebase.js';
-import { removeUser } from 'redux/auth/slice';
+import { Stack, Container, Box } from '@mui/material';
+import { Logo, Navbar } from 'components';
 
 export default function Header() {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-
-  const singout = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch(removeUser());
-      })
-      .catch(err => alert(err));
-  };
-
   return (
-    <div>
-      Header
-      {isLoggedIn ? (
-        <button onClick={singout}>Sign out</button>
-      ) : (
-        <Link to="/signin">Sign In</Link>
-      )}
-    </div>
+    <Box as="header" pt={2} pb={2}>
+      <Container>
+        <Stack direction="row" justifyContent="space-between">
+          <Logo />
+          <Navbar />
+        </Stack>
+      </Container>
+    </Box>
   );
 }

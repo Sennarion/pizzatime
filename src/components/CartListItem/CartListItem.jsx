@@ -26,7 +26,7 @@ export default function CartListItem({ product }) {
         justifyContent="space-between"
         borderRadius={2}
         p={4}
-        bgcolor="#aeaeae"
+        bgcolor="#fff6b0"
       >
         <Typography
           component={Link}

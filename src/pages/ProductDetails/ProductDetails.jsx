@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from 'firebase.js';
-import { addProduct } from 'redux/cart/slice';
-import { Container } from '@mui/material';
+import { db } from 'firebase-config/config';
+import { addProduct, deleteProduct } from 'redux/cart/slice';
+import {
+  Box,
+  Container,
+  Stack,
+  Button,
+  Typography,
+  Rating,
+} from '@mui/material';
+import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
+import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
+
+  const cartItems = useSelector(state => state.cart.items);
 
   const dispatch = useDispatch();
 
@@ -24,6 +35,7 @@ export default function ProductDetails() {
   if (!product) return null;
 
   const {
+    id,
     name,
     weight,
     diameter,
@@ -32,21 +44,77 @@ export default function ProductDetails() {
     ingredients,
     description,
     photoUrl,
-    status,
+    rating,
   } = product;
+
+  const isInCart = cartItems.some(product => product.id === id);
+  const pricePerUnit = discountPrice || price;
 
   return (
     <Container>
-      <img src={photoUrl} alt={name} />
-      <p>Name: {name}</p>
-      <p>Description: {description}</p>
-      <p>Price: {price}₴</p>
-      <p>DiscountPrice: {discountPrice}₴</p>
-      <p>Weight: {weight}</p>
-      <p>Diameter: {diameter}</p>
-      <p>Ingredients: {ingredients.join(', ')}</p>
-      <p>Status: {status}</p>
-      <button onClick={() => dispatch(addProduct(product))}>To cart</button>
+      <Stack direction={{ md: 'row' }} spacing={6}>
+        <Box borderRadius={10} overflow="hidden" boxShadow={2}>
+          <img src={photoUrl} alt={name} width="500px" />
+        </Box>
+        <Stack>
+          <Typography variant="h4" mb={2}>
+            {name}
+          </Typography>
+          <Typography mb={2}>{description}</Typography>
+          <Rating name="read-only" value={rating} precision={0.5} readOnly />
+          <Typography mb={2} mt={2}>
+            <Typography variant="h6" component="span" mr={1}>
+              Ingredients:
+            </Typography>
+            {ingredients.join(', ')}
+          </Typography>
+          <Typography mb={2}>
+            <Typography variant="h6" component="span" mr={1}>
+              Weight:
+            </Typography>
+            {weight}
+          </Typography>
+          <Typography mb={2}>
+            <Typography variant="h6" component="span" mr={1}>
+              Diameter:
+            </Typography>
+            {diameter}
+          </Typography>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="h4" color="secondary" mb={2}>
+              {pricePerUnit}₴
+            </Typography>
+            {discountPrice && (
+              <Typography
+                variant="h6"
+                sx={{ textDecoration: 'line-through' }}
+                mb={2}
+              >
+                {price}₴
+              </Typography>
+            )}
+          </Stack>
+          {isInCart ? (
+            <Button
+              variant="outlined"
+              color="secondary"
+              startIcon={<RemoveShoppingCartRoundedIcon />}
+              onClick={() => dispatch(deleteProduct(id))}
+            >
+              Delete from cart
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<AddShoppingCartRoundedIcon />}
+              onClick={() => dispatch(addProduct(product))}
+            >
+              Add to cart
+            </Button>
+          )}
+        </Stack>
+      </Stack>
     </Container>
   );
 }

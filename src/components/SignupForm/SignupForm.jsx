@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Button, TextField, Stack } from '@mui/material';
 import { setUser } from 'redux/auth/slice';
-import { auth } from 'firebase.js';
+import { auth } from 'firebase-config/config.js';
 
 export default function SignupForm() {
   const dispatch = useDispatch();

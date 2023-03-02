@@ -3,7 +3,7 @@ import { Logo, Navbar } from 'components';
 
 export default function Header() {
   return (
-    <Box as="header" pt={2} pb={2}>
+    <Box as="header" paddingY={2} bgcolor="#fff6b0">
       <Container>
         <Stack direction="row" justifyContent="space-between">
           <Logo />

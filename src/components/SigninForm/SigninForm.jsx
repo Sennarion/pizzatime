@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { Button, TextField, Stack } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import { setUser } from 'redux/auth/slice';
-import { auth, provider } from 'firebase.js';
+import { auth, provider } from 'firebase-config/config.js';
 
 export default function SigninForm() {
   const dispatch = useDispatch();

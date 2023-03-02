@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { Stack, Button, Badge } from '@mui/material';
 import { signOut } from 'firebase/auth';
-import { auth } from 'firebase.js';
+import { auth } from 'firebase-config/config';
 import { removeUser } from 'redux/auth/slice';
 import { cleanCart } from 'redux/cart/slice';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import { NavItem } from './Navbar.styled';
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -18,33 +18,37 @@ export default function Navbar() {
         dispatch(removeUser());
         dispatch(cleanCart());
       })
-      .catch(err => alert(err));
+      .catch(alert);
   };
 
   return (
-    <Stack as="nav" direction="row" alignItems="center" spacing={4}>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/products">Products</NavLink>
-      {isLoggedIn && (
-        <>
-          <NavLink to="/profile">Profile</NavLink>
+    <Stack as="nav" direction="row" alignItems="center" spacing={20}>
+      <Stack direction="row" alignItems="center" spacing={4}>
+        <NavItem to="/">Home</NavItem>
+        <NavItem to="/products">Products</NavItem>
+        {isLoggedIn && <NavItem to="/profile">Profile</NavItem>}
+      </Stack>
+      {isLoggedIn ? (
+        <Stack direction="row" alignItems="center" spacing={4}>
           <Badge
-            component={NavLink}
+            component={NavItem}
             to="/cart"
             badgeContent={cartItems.length}
             color="primary"
           >
             <ShoppingCartRoundedIcon />
           </Badge>
-        </>
-      )}
-
-      {isLoggedIn ? (
-        <Button variant="outlined" onClick={singout}>
-          Sign out
-        </Button>
+          <Button variant="outlined" onClick={singout} color="secondary">
+            Sign out
+          </Button>
+        </Stack>
       ) : (
-        <Button component={NavLink} to="/signin" variant="outlined">
+        <Button
+          component={NavItem}
+          to="/signin"
+          variant="outlined"
+          color="secondary"
+        >
           Sign In
         </Button>
       )}

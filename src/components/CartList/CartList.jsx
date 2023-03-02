@@ -1,19 +1,12 @@
-import { useSelector } from 'react-redux';
 import CartListItem from 'components/CartListItem/CartListItem';
+import { Grid } from '@mui/material';
 
-export default function CartList() {
-  const products = useSelector(state => state.cart.items);
+export default function CartList({ cartItems }) {
   return (
-    <>
-      {products.length > 0 ? (
-        <ul>
-          {products.map(product => (
-            <CartListItem key={product.id} product={product} />
-          ))}
-        </ul>
-      ) : (
-        <p>Empty</p>
-      )}
-    </>
+    <Grid container component="ul" spacing={2} mb={4}>
+      {cartItems.map(product => (
+        <CartListItem key={product.id} product={product} />
+      ))}
+    </Grid>
   );
 }

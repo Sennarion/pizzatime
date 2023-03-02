@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Container } from '@mui/material';
 
 export default function Profile() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -7,5 +8,5 @@ export default function Profile() {
   if (!isLoggedIn) {
     return <Navigate to="/" replace />;
   }
-  return <div>Profile</div>;
+  return <Container>Profile</Container>;
 }

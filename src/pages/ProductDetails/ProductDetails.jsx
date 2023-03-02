@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase.js';
 import { addProduct } from 'redux/cart/slice';
+import { Container } from '@mui/material';
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -24,7 +25,6 @@ export default function ProductDetails() {
 
   const {
     name,
-    id,
     weight,
     diameter,
     price,
@@ -36,17 +36,17 @@ export default function ProductDetails() {
   } = product;
 
   return (
-    <div>
+    <Container>
       <img src={photoUrl} alt={name} />
       <p>Name: {name}</p>
       <p>Description: {description}</p>
-      <p>Price: {price}</p>
-      <p>DiscountPrice: {discountPrice}</p>
+      <p>Price: {price}₴</p>
+      <p>DiscountPrice: {discountPrice}₴</p>
       <p>Weight: {weight}</p>
       <p>Diameter: {diameter}</p>
       <p>Ingredients: {ingredients.join(', ')}</p>
       <p>Status: {status}</p>
-      <button onClick={() => dispatch(addProduct(product))}>Buy</button>
-    </div>
+      <button onClick={() => dispatch(addProduct(product))}>To cart</button>
+    </Container>
   );
 }

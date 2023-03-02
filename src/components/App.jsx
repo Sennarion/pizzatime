@@ -1,13 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { SharedLayout, Dashboard, Loader } from 'components';
-import { setUser } from 'redux/auth/slice';
-import { auth } from 'firebase.js';
+import { SharedLayout, Loader } from 'components';
 
 const Signup = lazy(() => import('pages/Signup/Signup'));
 const Signin = lazy(() => import('pages/Signin/Signin'));
+const Home = lazy(() => import('pages/Home/Home'));
 const Cart = lazy(() => import('pages/Cart/Cart'));
 const Profile = lazy(() => import('pages/Profile/Profile'));
 const Products = lazy(() => import('pages/Products/Products'));
@@ -16,21 +13,6 @@ const ProductDetails = lazy(() =>
 );
 
 export default function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, currentUser => {
-      if (currentUser) {
-        dispatch(
-          setUser({
-            email: currentUser.email,
-            id: currentUser.uid,
-          })
-        );
-      }
-    });
-  }, [dispatch]);
-
   return (
     <>
       <Loader isOpen={false} />
@@ -39,7 +21,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Dashboard />} />
+            <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="profile" element={<Profile />} />
             <Route path="products" element={<Products />} />

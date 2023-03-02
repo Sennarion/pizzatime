@@ -4,6 +4,7 @@ import { getDocs, collection } from 'firebase/firestore';
 import { db } from 'firebase.js';
 import { setProducts } from 'redux/products/slice';
 import { ProductsList } from 'components';
+import { Container } from '@mui/material';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -21,8 +22,8 @@ export default function Products() {
   }, [dispatch, productsCollectionRef]);
 
   return (
-    <div>
+    <Container>
       <ProductsList />
-    </div>
+    </Container>
   );
 }

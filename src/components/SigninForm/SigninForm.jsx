@@ -27,6 +27,19 @@ export default function SigninForm() {
       .catch(err => alert(err));
   };
 
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then(({ user }) => {
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+          })
+        );
+      })
+      .catch(err => alert(err));
+  };
+
   return (
     <form onSubmit={onSubmit} autoComplete="off">
       <Stack spacing={2}>
@@ -60,7 +73,7 @@ export default function SigninForm() {
           variant="outlined"
           color="primary"
           fullWidth
-          onClick={() => signInWithPopup(auth, provider)}
+          onClick={signInWithGoogle}
         >
           Sign in with google
         </Button>

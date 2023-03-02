@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Container, Typography, Button } from '@mui/material';
 import { CartList } from 'components';
 
 export default function Cart() {
@@ -16,10 +17,16 @@ export default function Cart() {
   }, 0);
 
   return (
-    <>
-      <CartList />
-      <h2>Total price: {totalPrice}</h2>
-      <button>Order now</button>
-    </>
+    <Container>
+      {cartItems.length > 0 ? (
+        <>
+          <CartList cartItems={cartItems} />
+          <Typography variant="h4">Total price: {totalPrice}₴</Typography>
+          <Button>Order now</Button>
+        </>
+      ) : (
+        <p>Empty</p>
+      )}
+    </Container>
   );
 }

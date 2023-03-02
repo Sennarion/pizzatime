@@ -1,19 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Stack, IconButton, Button } from '@mui/material';
+import { Stack, Button, Badge } from '@mui/material';
 import { signOut } from 'firebase/auth';
 import { auth } from 'firebase.js';
 import { removeUser } from 'redux/auth/slice';
+import { cleanCart } from 'redux/cart/slice';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const cartItems = useSelector(state => state.cart.items);
 
   const singout = () => {
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
+        dispatch(cleanCart());
       })
       .catch(err => alert(err));
   };
@@ -25,9 +28,14 @@ export default function Navbar() {
       {isLoggedIn && (
         <>
           <NavLink to="/profile">Profile</NavLink>
-          <IconButton component={NavLink} to="/cart">
+          <Badge
+            component={NavLink}
+            to="/cart"
+            badgeContent={cartItems.length}
+            color="primary"
+          >
             <ShoppingCartRoundedIcon />
-          </IconButton>
+          </Badge>
         </>
       )}
 

@@ -5,7 +5,6 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'cart',
   storage,
-  whitelist: ['items'],
 };
 
 const initialState = { items: [] };
@@ -19,7 +18,7 @@ const cartSlice = createSlice({
     },
     deleteProduct(state, { payload }) {
       const productIdx = state.items.findIndex(
-        product => product.id === payload.id
+        product => product.id === payload
       );
       state.items.splice(productIdx, 1);
     },
@@ -37,6 +36,9 @@ const cartSlice = createSlice({
         state.items[productIdx].quantity -= 1;
       }
     },
+    cleanCart(state) {
+      state.items = [];
+    },
   },
 });
 
@@ -45,6 +47,7 @@ export const {
   deleteProduct,
   incrementQuantity,
   decrementQuantity,
+  cleanCart,
 } = cartSlice.actions;
 
 export const cartReducer = persistReducer(persistConfig, cartSlice.reducer);

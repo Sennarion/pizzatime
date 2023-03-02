@@ -15,7 +15,12 @@ export default function Home() {
         mb={10}
       >
         <Stack spacing={3} maxWidth="35%">
-          <Typography variant="h4" component="h1" color="primary">
+          <Typography
+            variant="h3"
+            component="h1"
+            color="primary"
+            fontFamily="secondaryFontFamily"
+          >
             Taste perfection in every slice!
           </Typography>
           <Typography color="common.white">

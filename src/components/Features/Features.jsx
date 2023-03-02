@@ -41,7 +41,12 @@ export default function Features() {
         {features.map(({ title, icon: Icon, description }) => (
           <Grid item key={title} component="li" xs={12} sm={6} md={3}>
             <Paper>
-              <Stack alignItems="center" spacing={2} p={4}>
+              <Stack
+                alignItems="center"
+                spacing={2}
+                p={4}
+                bgcolor="secondary.main"
+              >
                 <Icon color="primary" sx={{ fontSize: 80 }} />
                 <Typography variant="h6">{title}</Typography>
                 <Typography>{description}</Typography>

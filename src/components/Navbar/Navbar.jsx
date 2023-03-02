@@ -5,6 +5,8 @@ import { auth } from 'firebase-config/config';
 import { removeUser } from 'redux/auth/slice';
 import { cleanCart } from 'redux/cart/slice';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { NavItem } from './Navbar.styled';
 
 export default function Navbar() {
@@ -29,7 +31,7 @@ export default function Navbar() {
         {isLoggedIn && <NavItem to="/profile">Profile</NavItem>}
       </Stack>
       {isLoggedIn ? (
-        <Stack direction="row" alignItems="center" spacing={4}>
+        <Stack direction="row" alignItems="center" spacing={2}>
           <Badge
             component={NavItem}
             to="/cart"
@@ -38,7 +40,11 @@ export default function Navbar() {
           >
             <ShoppingCartRoundedIcon />
           </Badge>
-          <Button variant="outlined" onClick={singout} color="secondary">
+          <Button
+            onClick={singout}
+            color="primary"
+            startIcon={<LogoutRoundedIcon />}
+          >
             Sign out
           </Button>
         </Stack>
@@ -46,10 +52,10 @@ export default function Navbar() {
         <Button
           component={NavItem}
           to="/signin"
-          variant="outlined"
-          color="secondary"
+          startIcon={<LoginRoundedIcon />}
+          color="primary"
         >
-          Sign In
+          Sign in
         </Button>
       )}
     </Stack>

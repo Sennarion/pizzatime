@@ -6,7 +6,7 @@ export default function Footer() {
   const year = date.getFullYear();
 
   return (
-    <Box as="footer" paddingY={2} bgcolor="#fff6b0">
+    <Box as="footer" paddingY={2} bgcolor="secondary.main">
       <Container>
         <Stack alignItems="center" spacing={2}>
           <Logo />

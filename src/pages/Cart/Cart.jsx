@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   Typography,
@@ -10,10 +10,18 @@ import {
   Stack,
 } from '@mui/material';
 import { CartList, OrderModal } from 'components';
+import { cleanCart } from 'redux/cart/slice';
 
 export default function Cart() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isSuccessOrder, setIsSuccessOrder] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const onOrder = () => {
+    setIsSuccessOrder(true);
+    dispatch(cleanCart());
+  };
 
   const cartItems = useSelector(state => state.cart.items);
 
@@ -59,11 +67,11 @@ export default function Cart() {
       <OrderModal
         isOpen={isOrderModalOpen}
         onClose={() => setIsOrderModalOpen(false)}
-        onOrder={() => setIsSuccessOrder(true)}
+        onOrder={onOrder}
       />
       <Snackbar
         open={isSuccessOrder}
-        autoHideDuration={5000}
+        autoHideDuration={6000}
         onClose={() => setIsSuccessOrder(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >

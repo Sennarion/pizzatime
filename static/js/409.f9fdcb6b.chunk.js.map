@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/409.f9fdcb6b.chunk.js","mappings":"gLAEe,SAASA,IACtB,OAAO,SAAC,IAAD,qBACR,C","sources":["pages/Profile/Profile.jsx"],"sourcesContent":["import { Container } from '@mui/material';\n\nexport default function Profile() {\n  return <Container>Profile</Container>;\n}\n"],"names":["Profile"],"sourceRoot":""}

@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { store, persistor } from 'redux/store';
 import App from 'components/App';
 import { theme } from 'styles/theme';
-import './firebase-config/config';
+import 'firebase-config/config';
 import 'styles/index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

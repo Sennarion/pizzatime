@@ -8,13 +8,13 @@ export default function Home() {
     <Container>
       <Box
         component={Background}
-        paddingY={20}
         borderRadius={6}
         overflow="hidden"
-        p={10}
-        mb={10}
+        paddingX={{ sm: 8 }}
+        paddingY={{ xs: 8, sm: 20 }}
+        mb={{ sm: 8 }}
       >
-        <Stack spacing={3} maxWidth="35%">
+        <Stack spacing={3} maxWidth={{ xs: '100%', sm: '350px' }}>
           <Typography
             variant="h3"
             component="h1"
@@ -23,12 +23,17 @@ export default function Home() {
           >
             Taste perfection in every slice!
           </Typography>
-          <Typography color="common.white">
+          <Typography>
             Welcome to our pizza shop, where we make the most delicious pizzas
             you'll ever taste! Our pizza dough is made fresh daily, and we only
             use the freshest and highest quality ingredients to make our pizzas.
           </Typography>
-          <Button component={Link} to="/products" variant="contained">
+          <Button
+            component={Link}
+            to="/products"
+            variant="contained"
+            color="primary"
+          >
             Choose my pizza
           </Button>
         </Stack>

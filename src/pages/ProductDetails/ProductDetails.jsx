@@ -52,12 +52,12 @@ export default function ProductDetails() {
 
   return (
     <Container>
-      <Stack direction={{ md: 'row' }} spacing={6}>
+      <Stack spacing={4} direction={{ xs: 'column', md: 'row' }}>
         <Box borderRadius={10} overflow="hidden" boxShadow={2}>
-          <img src={photoUrl} alt={name} width="500px" />
+          <img src={photoUrl} alt={name} width="100%" />
         </Box>
         <Stack>
-          <Typography variant="h4" mb={2}>
+          <Typography variant="h4" mb={2} color="primary">
             {name}
           </Typography>
           <Typography mb={2}>{description}</Typography>
@@ -81,7 +81,7 @@ export default function ProductDetails() {
             {diameter}
           </Typography>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="h4" color="secondary" mb={2}>
+            <Typography variant="h4" color="primary" mb={2}>
               {pricePerUnit}₴
             </Typography>
             {discountPrice && (
@@ -97,7 +97,7 @@ export default function ProductDetails() {
           {isInCart ? (
             <Button
               variant="outlined"
-              color="secondary"
+              color="primary"
               startIcon={<RemoveShoppingCartRoundedIcon />}
               onClick={() => dispatch(deleteProduct(id))}
             >
@@ -106,7 +106,7 @@ export default function ProductDetails() {
           ) : (
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               startIcon={<AddShoppingCartRoundedIcon />}
               onClick={() => dispatch(addProduct(product))}
             >

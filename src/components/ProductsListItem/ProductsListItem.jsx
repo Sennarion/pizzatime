@@ -28,10 +28,15 @@ export default function ProductsListItem({ product }) {
 
   return (
     <Grid item component="li" xs={12} sm={6} md={4}>
-      <Card>
+      <Card variant="outlined">
         <CardMedia sx={{ height: 220 }} image={photoUrl} title={name} />
         <CardContent>
-          <Typography component={Link} to={`/products/${id}`} variant="h6">
+          <Typography
+            component={Link}
+            to={`/products/${id}`}
+            variant="h6"
+            color="primary"
+          >
             {name}
           </Typography>
           <Typography variant="body2" noWrap mb={2}>
@@ -39,7 +44,7 @@ export default function ProductsListItem({ product }) {
           </Typography>
           <Rating name="read-only" value={rating} precision={0.5} readOnly />
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="h4" color="secondary">
+            <Typography variant="h4" color="primary">
               {pricePerUnit}₴
             </Typography>
             {discountPrice && (
@@ -50,7 +55,7 @@ export default function ProductsListItem({ product }) {
           </Stack>
         </CardContent>
         <CardActions>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={1}>
             <Button
               variant="outlined"
               color="primary"
@@ -62,20 +67,18 @@ export default function ProductsListItem({ product }) {
             {isInCart ? (
               <Button
                 variant="outlined"
-                color="secondary"
-                startIcon={<RemoveShoppingCartRoundedIcon />}
+                color="primary"
                 onClick={() => dispatch(deleteProduct(id))}
               >
-                Delete from cart
+                <RemoveShoppingCartRoundedIcon />
               </Button>
             ) : (
               <Button
                 variant="contained"
-                color="secondary"
-                startIcon={<AddShoppingCartRoundedIcon />}
+                color="primary"
                 onClick={() => dispatch(addProduct(product))}
               >
-                Add to cart
+                <AddShoppingCartRoundedIcon />
               </Button>
             )}
           </Stack>

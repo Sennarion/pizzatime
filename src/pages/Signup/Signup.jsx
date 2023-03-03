@@ -1,16 +1,9 @@
-import { Link as RouterLink, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 import { Link, Typography, Stack, Box } from '@mui/material';
 import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
 import { SignupForm } from 'components';
 
 export default function Signup() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-
-  if (isLoggedIn) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
     <Box
       width="100%"
@@ -25,7 +18,7 @@ export default function Signup() {
         spacing={2}
         boxShadow={{ sm: 2 }}
         width={{ xs: 340, sm: 400 }}
-        bgcolor="#fff"
+        bgcolor="common.white"
       >
         <Stack spacing={2} alignItems="center">
           <PersonAddRoundedIcon color="primary" sx={{ fontSize: 80 }} />

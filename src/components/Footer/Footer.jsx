@@ -6,11 +6,11 @@ export default function Footer() {
   const year = date.getFullYear();
 
   return (
-    <Box as="footer" paddingY={2} bgcolor="secondary.main">
+    <Box as="footer" paddingY={2} boxShadow={10}>
       <Container>
         <Stack alignItems="center" spacing={2}>
           <Logo />
-          <Typography>© {year} All right reserved</Typography>
+          <Typography>{year} © All right reserved</Typography>
         </Stack>
       </Container>
     </Box>

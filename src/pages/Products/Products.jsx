@@ -1,47 +1,53 @@
+import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
-// import { setProducts } from 'redux/products/slice';
 import { ProductsList, Filter } from 'components';
 import { Container } from '@mui/material';
+import { filterParams } from 'data/filter-params';
 
 export default function Products() {
-  // const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
+  const [sortedProducts, setSortedProducts] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortByValue = searchParams.get('sort');
+
   const productsCollectionRef = collection(db, 'products');
 
-  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    getDocs(productsCollectionRef)
+      .then(products =>
+        products.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      )
+      .then(setProducts)
+      .catch(alert);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // const sortProducts = () => {
-  //   return [...products.sort((a, b) => a.price - b.price)];
-  // };
-
-  // const sortedProducts = sortProducts();
-
-  // useEffect(() => {
-  //   getDocs(productsCollectionRef)
-  //     .then(products =>
-  //       products.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-  //     )
-  //     .then(products => {
-  //       dispatch(setProducts(products));
-  //     })
-  //     .catch(err => alert(err));
-  // }, [dispatch, productsCollectionRef]);
-
-  // useEffect(() => {
-  //   getDocs(productsCollectionRef)
-  //     .then(products =>
-  //       products.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-  //     )
-  //     .then(setProducts)
-  //     .catch(alert);
-  // }, [productsCollectionRef]);
+  useEffect(() => {
+    switch (sortByValue) {
+      case filterParams.byPriceDown:
+        setSortedProducts([...products.sort((a, b) => b.price - a.price)]);
+        break;
+      case filterParams.byPriceUp:
+        setSortedProducts([...products.sort((a, b) => a.price - b.price)]);
+        break;
+      case filterParams.byRatingDown:
+        setSortedProducts([...products.sort((a, b) => b.rating - a.rating)]);
+        break;
+      case filterParams.byRatingUp:
+        setSortedProducts([...products.sort((a, b) => a.rating - b.rating)]);
+        break;
+      default:
+        setSortedProducts([...products]);
+    }
+  }, [products, sortByValue]);
 
   return (
     <Container>
-      <Filter />
-      <ProductsList products={products} />
+      <Filter setSearchParams={setSearchParams} />
+      <ProductsList products={sortedProducts} />
     </Container>
   );
 }

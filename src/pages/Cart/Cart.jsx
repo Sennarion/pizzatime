@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   Container,
@@ -15,12 +15,7 @@ export default function Cart() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isSuccessOrder, setIsSuccessOrder] = useState(false);
 
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const cartItems = useSelector(state => state.cart.items);
-
-  if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
-  }
 
   const totalPrice = cartItems.reduce((total, item) => {
     const pricePerUnit = item.discountPrice || item.price;

@@ -24,7 +24,13 @@ export default function Navbar() {
   };
 
   return (
-    <Stack as="nav" direction="row" alignItems="center" spacing={20}>
+    <Stack
+      as="nav"
+      direction="row"
+      alignItems="center"
+      spacing={20}
+      display={{ xs: 'none', md: 'flex' }}
+    >
       <Stack direction="row" alignItems="center" spacing={4}>
         <NavItem to="/">Home</NavItem>
         <NavItem to="/products">Products</NavItem>

@@ -14,3 +14,4 @@ export { default as SharedLayout } from './SharedLayout/SharedLayout';
 export { default as SigninForm } from './SigninForm/SigninForm';
 export { default as SignupForm } from './SignupForm/SignupForm';
 export { default as OrderModal } from './OrderModal/OrderModal';
+export { default as SigninModal } from './SigninModal/SigninModal';

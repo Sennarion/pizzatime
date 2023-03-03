@@ -28,14 +28,15 @@ export default function Cart() {
         <>
           <CartList cartItems={cartItems} />
           <Stack
-            direction="row"
+            direction={{ xs: 'column', sm: 'row' }}
             justifyContent="space-between"
             alignItems="center"
+            spacing={3}
           >
             <Typography variant="h4">Total price: {totalPrice}₴</Typography>
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               size="large"
               onClick={() => setIsOrderModalOpen(true)}
             >

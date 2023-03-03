@@ -19,7 +19,7 @@ export default function OrderModal({ isOpen, onClose, onOrder }) {
         spacing={2}
         boxShadow={{ sm: 2 }}
         width={{ xs: 340, sm: 400 }}
-        bgcolor="#fff"
+        bgcolor="common.white"
       >
         <form onSubmit={onSubmit}>
           <Stack spacing={2}>

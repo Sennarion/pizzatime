@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack, Button, Badge } from '@mui/material';
+import { Stack, Button, IconButton, Badge } from '@mui/material';
 import { signOut } from 'firebase/auth';
 import { auth } from 'firebase-config/config';
 import { removeUser } from 'redux/auth/slice';
@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <Stack
-      as="nav"
+      component="nav"
       direction="row"
       alignItems="center"
       spacing={20}
@@ -38,14 +38,11 @@ export default function Navbar() {
       </Stack>
       {isLoggedIn ? (
         <Stack direction="row" alignItems="center" spacing={2}>
-          <Badge
-            component={NavItem}
-            to="/cart"
-            badgeContent={cartItems.length}
-            color="primary"
-          >
-            <ShoppingCartRoundedIcon />
-          </Badge>
+          <IconButton component={NavItem} to="/cart" color="primary">
+            <Badge badgeContent={cartItems.length} color="primary">
+              <ShoppingCartRoundedIcon />
+            </Badge>
+          </IconButton>
           <Button
             onClick={singout}
             color="primary"

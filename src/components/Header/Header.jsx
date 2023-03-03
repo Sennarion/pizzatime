@@ -1,5 +1,5 @@
 import { Stack, Container, Box } from '@mui/material';
-import { Logo, Navbar } from 'components';
+import { Logo, DesktopNavbar, MobileNavbar } from 'components';
 
 export default function Header() {
   return (
@@ -7,7 +7,8 @@ export default function Header() {
       <Container>
         <Stack direction="row" justifyContent="space-between">
           <Logo />
-          <Navbar />
+          <DesktopNavbar />
+          <MobileNavbar />
         </Stack>
       </Container>
     </Box>

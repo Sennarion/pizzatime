@@ -28,10 +28,22 @@ export default function Products() {
   useEffect(() => {
     switch (sortByValue) {
       case filterParams.byPriceDown:
-        setSortedProducts([...products.sort((a, b) => b.price - a.price)]);
+        setSortedProducts([
+          ...products.sort((a, b) => {
+            const priceA = a.discountPrice || a.price;
+            const priceB = b.discountPrice || b.price;
+            return priceB - priceA;
+          }),
+        ]);
         break;
       case filterParams.byPriceUp:
-        setSortedProducts([...products.sort((a, b) => a.price - b.price)]);
+        setSortedProducts([
+          ...products.sort((a, b) => {
+            const priceA = a.discountPrice || a.price;
+            const priceB = b.discountPrice || b.price;
+            return priceA - priceB;
+          }),
+        ]);
         break;
       case filterParams.byRatingDown:
         setSortedProducts([...products.sort((a, b) => b.rating - a.rating)]);

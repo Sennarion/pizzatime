@@ -1,8 +1,8 @@
 {
-  "name": "ecommerce",
+  "name": "pizzatime",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sennarion.github.io/ecommerce/",
+  "homepage": "https://sennarion.github.io/pizzatime/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

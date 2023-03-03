@@ -1,18 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
-
-import { Link, Typography, Stack, Box } from '@mui/material';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { SigninForm } from 'components';
+import { Link, Typography, Stack } from '@mui/material';
+import { SigninForm, Logo, Background } from 'components';
 
 export default function Signin() {
   return (
-    <Box
-      width="100%"
-      height="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Background>
       <Stack
         p={4}
         borderRadius={2}
@@ -21,8 +13,8 @@ export default function Signin() {
         width={{ xs: 340, sm: 400 }}
         bgcolor="common.white"
       >
-        <Stack spacing={2} alignItems="center">
-          <PersonRoundedIcon color="primary" sx={{ fontSize: 80 }} />
+        <Stack spacing={6} alignItems="center">
+          <Logo />
           <Typography component="h2" variant="h5">
             Sign In
           </Typography>
@@ -39,6 +31,6 @@ export default function Signin() {
           </Typography>
         </Stack>
       </Stack>
-    </Box>
+    </Background>
   );
 }

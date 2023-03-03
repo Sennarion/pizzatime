@@ -1,17 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Link, Typography, Stack, Box } from '@mui/material';
-import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
-import { SignupForm } from 'components';
+import { Link, Typography, Stack } from '@mui/material';
+import { SignupForm, Logo, Background } from 'components';
 
 export default function Signup() {
   return (
-    <Box
-      width="100%"
-      height="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Background>
       <Stack
         p={4}
         borderRadius={2}
@@ -20,8 +13,8 @@ export default function Signup() {
         width={{ xs: 340, sm: 400 }}
         bgcolor="common.white"
       >
-        <Stack spacing={2} alignItems="center">
-          <PersonAddRoundedIcon color="primary" sx={{ fontSize: 80 }} />
+        <Stack spacing={6} alignItems="center">
+          <Logo />
           <Typography component="h2" variant="h5">
             Sign Up
           </Typography>
@@ -38,6 +31,6 @@ export default function Signup() {
           </Typography>
         </Stack>
       </Stack>
-    </Box>
+    </Background>
   );
 }

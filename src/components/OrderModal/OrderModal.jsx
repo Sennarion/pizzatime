@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useFormik } from 'formik';
+import { orderSchema } from 'utils/validationSchema';
+
 import { Dialog, Stack, TextField, Button, Typography } from '@mui/material';
 
 export default function OrderModal({ isOpen, onClose, onOrder }) {
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      tel: '',
+    },
+    onSubmit: (_, { resetForm }) => {
+      onOrder();
+      onClose();
 
-  const onSubmit = e => {
-    e.preventDefault();
-    onOrder();
-    onClose();
-  };
+      resetForm();
+    },
+    validationSchema: orderSchema,
+  });
+
+  const { handleSubmit, handleChange, values, touched, errors } = formik;
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -21,7 +30,7 @@ export default function OrderModal({ isOpen, onClose, onOrder }) {
         width={{ xs: 340, sm: 400 }}
         bgcolor="common.white"
       >
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
             <Typography variant="h5" textAlign="center">
               Create order
@@ -33,19 +42,24 @@ export default function OrderModal({ isOpen, onClose, onOrder }) {
               variant="outlined"
               size="small"
               fullWidth
-              value={name}
-              onChange={e => setName(e.target.value)}
+              value={values.name}
+              onChange={handleChange}
+              error={Boolean(touched.name && errors.name)}
+              helperText={touched.name && errors.name}
               required
             />
             <TextField
               type="tel"
-              name="number"
+              name="tel"
               label="Phone Number"
+              placeholder="0997777777"
               variant="outlined"
               size="small"
               fullWidth
-              value={phoneNumber}
-              onChange={e => setPhoneNumber(e.target.value)}
+              value={values.tel}
+              onChange={handleChange}
+              error={Boolean(touched.tel && errors.tel)}
+              helperText={touched.tel && errors.tel}
               required
             />
             <Button type="submit" variant="contained" color="primary" fullWidth>

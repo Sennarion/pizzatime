@@ -1,9 +1,11 @@
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Portal, Backdrop, CircularProgress } from '@mui/material';
 
 export default function Loader({ isOpen }) {
   return (
-    <Backdrop open={isOpen}>
-      <CircularProgress />
-    </Backdrop>
+    <Portal>
+      <Backdrop open={isOpen}>
+        <CircularProgress />
+      </Backdrop>
+    </Portal>
   );
 }

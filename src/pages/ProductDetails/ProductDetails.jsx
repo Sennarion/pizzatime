@@ -55,9 +55,13 @@ export default function ProductDetails() {
 
   return (
     <Container>
-      <Stack spacing={4} direction={{ xs: 'column', md: 'row' }}>
+      <Stack
+        spacing={4}
+        direction={{ xs: 'column', sm: 'row' }}
+        alignItems="flex-start"
+      >
         <Box borderRadius={10} overflow="hidden" boxShadow={2}>
-          <img src={photoUrl} alt={name} width="400" />
+          <img src={photoUrl} alt={name} width="100%" />
         </Box>
         <Stack>
           <Typography variant="h4" mb={2} color="primary">

@@ -14,7 +14,7 @@ export default function Home() {
         paddingY={{ xs: 8, sm: 20 }}
         mb={{ sm: 8 }}
       >
-        <Stack spacing={3} maxWidth={{ xs: '100%', sm: '350px' }}>
+        <Stack spacing={3} maxWidth={{ xs: '100%', sm: 350 }}>
           <Typography
             variant="h3"
             component="h1"

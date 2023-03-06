@@ -10,6 +10,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { globalReducer } from './global/slice';
 import { authReducer } from './auth/slice';
 import { cartReducer } from './cart/slice';
 
@@ -28,6 +29,7 @@ const presistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
 
 export const store = configureStore({
   reducer: {
+    global: globalReducer,
     auth: presistedAuthReducer,
     cart: presistedCartReducer,
   },

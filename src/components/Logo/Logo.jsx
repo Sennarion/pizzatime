@@ -7,7 +7,7 @@ export default function Logo() {
     <Box>
       <Link to="/">
         <Stack direction="row" spacing={2} alignItems="center">
-          <img src={logo} width="50px" alt="pizza-logo" />
+          <img src={logo} width="50" alt="pizza-logo" />
           <Typography
             variant="h5"
             fontFamily="secondaryFontFamily"

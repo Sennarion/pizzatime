@@ -20,6 +20,9 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { signOut } from 'firebase/auth';
+import { setErrorStatus, setIsLoading } from 'redux/global/slice';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { selectCartItems } from 'redux/cart/selectors';
 import { auth } from 'firebase-config/config';
 import { removeUser } from 'redux/auth/slice';
 import { cleanCart } from 'redux/cart/slice';
@@ -27,18 +30,20 @@ import { NavItem } from './MobileNavbar.styled';
 
 export default function MobileNavbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const cartItems = useSelector(state => state.cart.items);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const cartItems = useSelector(selectCartItems);
 
   const dispatch = useDispatch();
 
   const singout = () => {
+    dispatch(setIsLoading(true));
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
         dispatch(cleanCart());
       })
-      .catch(alert);
+      .catch(err => dispatch(setErrorStatus(err.message)))
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

@@ -15,14 +15,16 @@ import {
 } from '@mui/material';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
+import { selectCartItems } from 'redux/cart/selectors';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { SigninModal } from 'components';
 
 export default function ProductsListItem({ product }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const cartItems = useSelector(state => state.cart.items);
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const cartItems = useSelector(selectCartItems);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const { name, id, ingredients, price, discountPrice, photoUrl, rating } =
     product;

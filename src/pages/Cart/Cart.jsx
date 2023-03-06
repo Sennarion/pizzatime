@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { CartList, OrderModal } from 'components';
 import { cleanCart } from 'redux/cart/slice';
+import { selectCartItems } from 'redux/cart/selectors';
 
 export default function Cart() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function Cart() {
     dispatch(cleanCart());
   };
 
-  const cartItems = useSelector(state => state.cart.items);
+  const cartItems = useSelector(selectCartItems);
 
   const totalPrice = cartItems.reduce((total, item) => {
     const pricePerUnit = item.discountPrice || item.price;

@@ -14,11 +14,13 @@ import {
 } from '@mui/material';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
+import { setErrorStatus } from 'redux/global/slice';
+import { selectCartItems } from 'redux/cart/selectors';
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
 
-  const cartItems = useSelector(state => state.cart.items);
+  const cartItems = useSelector(selectCartItems);
 
   const dispatch = useDispatch();
 
@@ -29,8 +31,9 @@ export default function ProductDetails() {
   useEffect(() => {
     getDoc(docRef)
       .then(product => setProduct(product.data()))
-      .catch(err => alert(err));
-  }, [docRef]);
+      .catch(err => dispatch(setErrorStatus(err.message)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!product) return null;
 

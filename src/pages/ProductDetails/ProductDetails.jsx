@@ -31,7 +31,7 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(setIsLoading(true));
     getDoc(docRef)
-      .then(product => setProduct(product.data()))
+      .then(product => setProduct({ id: productId, ...product.data() }))
       .catch(err => dispatch(setErrorStatus(err.message)))
       .finally(() => dispatch(setIsLoading(false)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,7 +40,6 @@ export default function ProductDetails() {
   if (!product) return null;
 
   const {
-    id,
     name,
     weight,
     diameter,
@@ -52,7 +51,7 @@ export default function ProductDetails() {
     rating,
   } = product;
 
-  const isInCart = cartItems.some(product => product.id === id);
+  const isInCart = cartItems.some(product => product.id === productId);
   const pricePerUnit = discountPrice || price;
 
   return (
@@ -62,8 +61,8 @@ export default function ProductDetails() {
         direction={{ xs: 'column', sm: 'row' }}
         alignItems="flex-start"
       >
-        <Box borderRadius={10} overflow="hidden" boxShadow={2}>
-          <img src={photoUrl} alt={name} width="100%" />
+        <Box borderRadius={10} overflow="hidden" boxShadow={2} maxWidth="600px">
+          <img src={photoUrl} alt={name} width="600" />
         </Box>
         <Stack>
           <Typography variant="h4" mb={2} color="primary">
@@ -108,7 +107,7 @@ export default function ProductDetails() {
               variant="outlined"
               color="primary"
               startIcon={<RemoveShoppingCartRoundedIcon />}
-              onClick={() => dispatch(deleteProduct(id))}
+              onClick={() => dispatch(deleteProduct(productId))}
             >
               Delete from cart
             </Button>

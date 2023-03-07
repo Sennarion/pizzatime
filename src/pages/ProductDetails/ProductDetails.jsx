@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
 import { addProduct, deleteProduct } from 'redux/cart/slice';
+import { setErrorStatus, setIsLoading } from 'redux/global/slice';
 import {
   Box,
   Container,
@@ -14,7 +15,6 @@ import {
 } from '@mui/material';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
-import { setErrorStatus } from 'redux/global/slice';
 import { selectCartItems } from 'redux/cart/selectors';
 
 export default function ProductDetails() {
@@ -29,9 +29,11 @@ export default function ProductDetails() {
   const docRef = doc(db, 'products', productId);
 
   useEffect(() => {
+    dispatch(setIsLoading(true));
     getDoc(docRef)
       .then(product => setProduct(product.data()))
-      .catch(err => dispatch(setErrorStatus(err.message)));
+      .catch(err => dispatch(setErrorStatus(err.message)))
+      .finally(() => dispatch(setIsLoading(false)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -79,13 +81,13 @@ export default function ProductDetails() {
             <Typography variant="h6" component="span" mr={1}>
               Weight:
             </Typography>
-            {weight}
+            {weight} g
           </Typography>
           <Typography mb={2}>
             <Typography variant="h6" component="span" mr={1}>
               Diameter:
             </Typography>
-            {diameter}
+            {diameter} cm
           </Typography>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Typography variant="h4" color="primary" mb={2}>

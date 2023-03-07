@@ -9,4 +9,15 @@ export const NavItem = styled(NavLink)`
       fill: ${({ theme }) => theme.palette.primary.main};
     }
   }
+
+  @media screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.values.md}px) {
+    &.active {
+      color: ${({ theme }) => theme.palette.secondary.main};
+
+      svg {
+        fill: ${({ theme }) => theme.palette.secondary.main};
+      }
+    }
+  }
 `;

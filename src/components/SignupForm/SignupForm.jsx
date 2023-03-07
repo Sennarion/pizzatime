@@ -24,6 +24,7 @@ export default function SignupForm() {
             setUser({
               email: user.email,
               id: user.uid,
+              avatar: null,
             })
           );
         })

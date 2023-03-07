@@ -1,16 +1,17 @@
-import { Stack, Container, Box } from '@mui/material';
-import { Logo, DesktopNavbar, MobileNavbar } from 'components';
+import { Container, AppBar, Toolbar, Stack } from '@mui/material';
+import { Navbar, Userbar } from 'components';
 
 export default function Header() {
   return (
-    <Box as="header" paddingY={2}>
+    <AppBar position="static">
       <Container>
-        <Stack direction="row" justifyContent="space-between">
-          <Logo />
-          <DesktopNavbar />
-          <MobileNavbar />
-        </Stack>
+        <Toolbar disableGutters>
+          <Stack width="100%" direction="row" justifyContent="space-between">
+            <Navbar />
+            <Userbar />
+          </Stack>
+        </Toolbar>
       </Container>
-    </Box>
+    </AppBar>
   );
 }

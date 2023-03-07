@@ -19,6 +19,7 @@ export default function SigninForm() {
           setUser({
             email: user.email,
             id: user.uid,
+            avatar: user.photoURL,
           })
         );
       })
@@ -39,6 +40,7 @@ export default function SigninForm() {
             setUser({
               email: user.email,
               id: user.uid,
+              avatar: null,
             })
           );
         })

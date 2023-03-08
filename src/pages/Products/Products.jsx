@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
@@ -11,6 +11,8 @@ import { sortProductsByValue } from 'utils/sortProducts';
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
+
+  const location = useLocation();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -40,7 +42,7 @@ export default function Products() {
   return (
     <Container>
       <Filter setSearchParams={setSearchParams} />
-      <ProductsList products={sortedProducts} />
+      <ProductsList products={sortedProducts} state={{ from: location }} />
     </Container>
   );
 }

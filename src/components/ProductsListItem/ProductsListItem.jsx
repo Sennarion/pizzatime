@@ -19,7 +19,7 @@ import { selectCartItems } from 'redux/cart/selectors';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { SigninModal } from 'components';
 
-export default function ProductsListItem({ product }) {
+export default function ProductsListItem({ product, state }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -76,6 +76,7 @@ export default function ProductsListItem({ product }) {
               color="primary"
               component={Link}
               to={`/products/${id}`}
+              state={state}
             >
               More info
             </Button>

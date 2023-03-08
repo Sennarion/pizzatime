@@ -7,12 +7,7 @@ import { filterParams } from 'data/filter-params';
 
 export default function Filter({ setSearchParams }) {
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      mb={2}
-      display={{ xs: 'none', md: 'flex' }}
-    >
+    <Stack direction="row" spacing={1} mb={2}>
       <Chip
         label="by price high to low"
         icon={<KeyboardArrowDownRoundedIcon />}

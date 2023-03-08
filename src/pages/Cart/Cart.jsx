@@ -12,6 +12,7 @@ import {
 import { CartList, OrderModal } from 'components';
 import { cleanCart } from 'redux/cart/slice';
 import { selectCartItems } from 'redux/cart/selectors';
+import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
 
 export default function Cart() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -56,10 +57,14 @@ export default function Cart() {
       ) : (
         <>
           <Stack spacing={3} alignItems="center">
+            <ProductionQuantityLimitsRoundedIcon
+              sx={{ fontSize: 70 }}
+              color="primary"
+            />
             <Typography variant="h5">
               Your cart is currently empty :(
             </Typography>
-            <Button component={Link} to="/products" variant="outlined">
+            <Button component={Link} to="/products" variant="contained">
               Go to products
             </Button>
           </Stack>

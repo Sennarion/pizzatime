@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
 import { addProduct, deleteProduct } from 'redux/cart/slice';
@@ -14,6 +14,7 @@ import {
   Rating,
 } from '@mui/material';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
 import { selectCartItems } from 'redux/cart/selectors';
 
@@ -24,8 +25,10 @@ export default function ProductDetails() {
 
   const dispatch = useDispatch();
 
-  const { productId } = useParams();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/products';
 
+  const { productId } = useParams();
   const docRef = doc(db, 'products', productId);
 
   useEffect(() => {
@@ -88,7 +91,7 @@ export default function ProductDetails() {
             </Typography>
             {diameter} cm
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" spacing={2}>
             <Typography variant="h4" color="primary" mb={2}>
               {pricePerUnit}₴
             </Typography>
@@ -102,25 +105,36 @@ export default function ProductDetails() {
               </Typography>
             )}
           </Stack>
-          {isInCart ? (
+          <Stack spacing={2}>
+            {isInCart ? (
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<RemoveShoppingCartRoundedIcon />}
+                onClick={() => dispatch(deleteProduct(productId))}
+              >
+                Delete from cart
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddShoppingCartRoundedIcon />}
+                onClick={() => dispatch(addProduct(product))}
+              >
+                Add to cart
+              </Button>
+            )}
             <Button
+              component={Link}
+              to={backLinkHref}
               variant="outlined"
               color="primary"
-              startIcon={<RemoveShoppingCartRoundedIcon />}
-              onClick={() => dispatch(deleteProduct(productId))}
+              startIcon={<ArrowBackIosNewRoundedIcon />}
             >
-              Delete from cart
+              Go back
             </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddShoppingCartRoundedIcon />}
-              onClick={() => dispatch(addProduct(product))}
-            >
-              Add to cart
-            </Button>
-          )}
+          </Stack>
         </Stack>
       </Stack>
     </Container>

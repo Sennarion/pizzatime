@@ -1,33 +1,54 @@
-import { Stack, Chip } from '@mui/material';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
-import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
-import { filterParams } from 'data/filter-params';
+import { useState } from 'react';
+import {
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  Box,
+  MenuItem,
+  Chip,
+} from '@mui/material';
+import { filters } from 'data/filter-params';
 
 export default function Filter({ setSearchParams }) {
+  const [value, setValue] = useState();
+
+  const onSelectChange = e => {
+    setValue(e.target.value);
+    setSearchParams({ sort: e.target.value });
+  };
+
   return (
-    <Stack direction="row" spacing={1} mb={2}>
-      <Chip
-        label="by price high to low"
-        icon={<KeyboardArrowDownRoundedIcon />}
-        onClick={() => setSearchParams({ sort: filterParams.byPriceDown })}
-      />
-      <Chip
-        label="by price low to high"
-        icon={<KeyboardArrowUpRoundedIcon />}
-        onClick={() => setSearchParams({ sort: filterParams.byPriceUp })}
-      />
-      <Chip
-        label="by rating high to low"
-        icon={<StarRateRoundedIcon />}
-        onClick={() => setSearchParams({ sort: filterParams.byRatingDown })}
-      />
-      <Chip
-        label="by rating low to high"
-        icon={<StarOutlineRoundedIcon />}
-        onClick={() => setSearchParams({ sort: filterParams.byRatingUp })}
-      />
-    </Stack>
+    <>
+      <Stack
+        direction="row"
+        spacing={1}
+        mb={2}
+        display={{ xs: 'none', md: 'flex' }}
+      >
+        {filters.map(({ label, icon: Icon, value }) => (
+          <Chip
+            label={label}
+            icon={<Icon />}
+            onClick={() => setSearchParams({ sort: value })}
+          />
+        ))}
+      </Stack>
+      <Box display={{ xs: 'block', md: 'none' }} marginY={2}>
+        <FormControl fullWidth>
+          <InputLabel id="select-label">Sort by</InputLabel>
+          <Select
+            labelId="select-label"
+            value={value}
+            label="Sort by"
+            onChange={onSelectChange}
+          >
+            {filters.map(({ label, value }) => (
+              <MenuItem value={value}>{label}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+    </>
   );
 }

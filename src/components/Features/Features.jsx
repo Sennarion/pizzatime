@@ -3,7 +3,7 @@ import { features } from 'data/features';
 
 export default function Features() {
   return (
-    <Box>
+    <Box mb={8}>
       <Typography variant="h4" textAlign="center" mb={4}>
         Our features
       </Typography>

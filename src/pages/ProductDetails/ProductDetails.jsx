@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
 import { addProduct, deleteProduct } from 'redux/cart/slice';
 import { setErrorStatus, setIsLoading } from 'redux/global/slice';
+import { selectCartItems } from 'redux/cart/selectors';
 import {
   Box,
   Container,
@@ -16,7 +17,6 @@ import {
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
-import { selectCartItems } from 'redux/cart/selectors';
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);

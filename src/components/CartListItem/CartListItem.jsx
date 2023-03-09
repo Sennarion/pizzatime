@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
-  incrementQuantity,
-  decrementQuantity,
+  increaseAmount,
+  decreaseAmount,
   deleteProduct,
 } from 'redux/cart/slice';
-import { Link } from 'react-router-dom';
 import {
   Grid,
   Stack,
@@ -20,10 +20,10 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 export default function CartListItem({ product }) {
   const dispatch = useDispatch();
 
-  const { id, name, price, discountPrice, quantity, photoUrl } = product;
+  const { id, name, price, discountPrice, amount, photoUrl } = product;
 
   const pricePerUnit = discountPrice || price;
-  const totalPrice = pricePerUnit * quantity;
+  const totalPrice = pricePerUnit * amount;
 
   return (
     <Grid item component="li" xs={12}>
@@ -64,14 +64,14 @@ export default function CartListItem({ product }) {
           >
             <Stack direction="row" alignItems="center">
               <IconButton
-                onClick={() => dispatch(decrementQuantity(id))}
+                onClick={() => dispatch(decreaseAmount(id))}
                 color="primary"
               >
                 <RemoveCircleRoundedIcon fontSize="large" />
               </IconButton>
-              <Typography variant="h5">{quantity}</Typography>
+              <Typography variant="h5">{amount}</Typography>
               <IconButton
-                onClick={() => dispatch(incrementQuantity(id))}
+                onClick={() => dispatch(increaseAmount(id))}
                 color="primary"
               >
                 <AddCircleRoundedIcon fontSize="large" />

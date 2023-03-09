@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { cleanCart } from 'redux/cart/slice';
+import { selectCartItems } from 'redux/cart/selectors';
 import {
   Container,
   Typography,
@@ -10,8 +12,6 @@ import {
   Stack,
 } from '@mui/material';
 import { CartList, OrderModal } from 'components';
-import { cleanCart } from 'redux/cart/slice';
-import { selectCartItems } from 'redux/cart/selectors';
 import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
 
 export default function Cart() {
@@ -29,7 +29,7 @@ export default function Cart() {
 
   const totalPrice = cartItems.reduce((total, item) => {
     const pricePerUnit = item.discountPrice || item.price;
-    return total + item.quantity * pricePerUnit;
+    return total + item.amount * pricePerUnit;
   }, 0);
 
   return (

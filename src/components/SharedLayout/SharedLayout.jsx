@@ -1,6 +1,6 @@
+import { Box, Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { Header, Footer } from 'components';
-import { Box, Stack } from '@mui/material';
 
 export default function SharedLayout() {
   return (

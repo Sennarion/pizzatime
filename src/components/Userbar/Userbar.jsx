@@ -2,17 +2,17 @@ import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { Avatar, Button, Box, IconButton, Menu, MenuItem } from '@mui/material';
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import { auth } from 'firebase-config/config';
 import {
   selectIsLoggedIn,
   selectEmail,
   selectAvatar,
 } from 'redux/auth/selectors';
-import { auth } from 'firebase-config/config';
 import { setIsLoading, setErrorStatus } from 'redux/global/slice';
 import { removeUser } from 'redux/auth/slice';
 import { cleanCart } from 'redux/cart/slice';
+import { Avatar, Button, Box, IconButton, Menu, MenuItem } from '@mui/material';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 export default function Userbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct, deleteProduct } from 'redux/cart/slice';
+import { selectCartItems } from 'redux/cart/selectors';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 import {
   Grid,
   Card,
@@ -15,8 +17,6 @@ import {
 } from '@mui/material';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
-import { selectCartItems } from 'redux/cart/selectors';
-import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { SigninModal } from 'components';
 
 export default function ProductsListItem({ product, state }) {

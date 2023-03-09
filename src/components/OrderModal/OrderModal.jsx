@@ -1,9 +1,8 @@
 import { useFormik } from 'formik';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { orderSchema } from 'utils/validationSchema';
-
 import { Dialog, Stack, TextField, Button, Typography } from '@mui/material';
+import { orderSchema } from 'utils/validationSchema';
 
 export default function OrderModal({ isOpen, onClose, onOrder }) {
   const theme = useTheme();

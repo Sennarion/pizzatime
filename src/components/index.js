@@ -4,7 +4,7 @@ export { default as Hero } from './Hero/Hero';
 export { default as Loader } from './Loader/Loader';
 export { default as Filter } from './Filter/Filter';
 export { default as Features } from './Features/Features';
-export { default as Images } from './Images/Images';
+export { default as Gallery } from './Gallery/Gallery';
 export { default as Logo } from './Logo/Logo';
 export { default as Navbar } from './Navbar/Navbar';
 export { default as Userbar } from './Userbar/Userbar';

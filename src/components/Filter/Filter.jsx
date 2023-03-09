@@ -11,7 +11,7 @@ import {
 import { filters } from 'data/filter-params';
 
 export default function Filter({ setSearchParams }) {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
 
   const onSelectChange = e => {
     setValue(e.target.value);
@@ -28,6 +28,7 @@ export default function Filter({ setSearchParams }) {
       >
         {filters.map(({ label, icon: Icon, value }) => (
           <Chip
+            key={label}
             label={label}
             icon={<Icon />}
             onClick={() => setSearchParams({ sort: value })}
@@ -44,7 +45,9 @@ export default function Filter({ setSearchParams }) {
             onChange={onSelectChange}
           >
             {filters.map(({ label, value }) => (
-              <MenuItem value={value}>{label}</MenuItem>
+              <MenuItem key={label} value={value}>
+                {label}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

@@ -3,9 +3,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
-import { Snackbar, Alert } from '@mui/material';
 import { selectIsLoading, selectErrorStatus } from 'redux/global/selectors';
 import { setErrorStatus } from 'redux/global/slice';
+import { Snackbar, Alert } from '@mui/material';
 import { SharedLayout, Loader } from 'components';
 
 const Signup = lazy(() => import('pages/Signup/Signup'));

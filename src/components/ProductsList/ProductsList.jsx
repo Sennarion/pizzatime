@@ -1,5 +1,5 @@
-import { ProductsListItem } from 'components';
 import { Grid } from '@mui/material';
+import { ProductsListItem } from 'components';
 
 export default function ProductsList({ products, state }) {
   return (

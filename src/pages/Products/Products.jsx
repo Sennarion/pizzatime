@@ -3,8 +3,8 @@ import { useSearchParams, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
-import { Container } from '@mui/material';
 import { setErrorStatus, setIsLoading } from 'redux/global/slice';
+import { Container } from '@mui/material';
 import { ProductsList, Filter } from 'components';
 import { sortProductsByValue } from 'utils/sortProducts';
 

@@ -1,3 +1,5 @@
+## ![PizzaTime](assets/devices.png)
+
 This project is an app that lets you order pizza. You can create an account
 using Firebase Auth or sign in with your Google account. The app has several
 pages, including a home page that explains what the app is and its advantages, a

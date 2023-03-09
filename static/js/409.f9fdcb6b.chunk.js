@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkpizzatime=self.webpackChunkpizzatime||[]).push([[409],{1409:function(e,n,i){i.r(n),i.d(n,{default:function(){return r}});var t=i(9164),u=i(3329);function r(){return(0,u.jsx)(t.Z,{children:"Profile"})}}}]);
-//# sourceMappingURL=409.f9fdcb6b.chunk.js.map

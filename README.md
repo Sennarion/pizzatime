@@ -1,3 +1,5 @@
+# PizzaTime
+
 ## ![PizzaTime](assets/devices.png)
 
 This project is an app that lets you order pizza. You can create an account

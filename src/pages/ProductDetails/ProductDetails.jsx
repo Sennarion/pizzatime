@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase-config/config';
 import { addProduct, deleteProduct } from 'redux/cart/slice';
 import { setErrorStatus, setIsLoading } from 'redux/global/slice';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { selectCartItems } from 'redux/cart/selectors';
 import {
   Box,
@@ -17,11 +18,14 @@ import {
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
+import { SigninModal } from 'components';
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cartItems = useSelector(selectCartItems);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -39,6 +43,15 @@ export default function ProductDetails() {
       .finally(() => dispatch(setIsLoading(false)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const addToCart = () => {
+    if (!isLoggedIn) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    dispatch(addProduct(product));
+  };
 
   if (!product) return null;
 
@@ -120,7 +133,7 @@ export default function ProductDetails() {
                 variant="contained"
                 color="primary"
                 startIcon={<AddShoppingCartRoundedIcon />}
-                onClick={() => dispatch(addProduct(product))}
+                onClick={addToCart}
               >
                 Add to cart
               </Button>
@@ -137,6 +150,7 @@ export default function ProductDetails() {
           </Stack>
         </Stack>
       </Stack>
+      <SigninModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Container>
   );
 }
